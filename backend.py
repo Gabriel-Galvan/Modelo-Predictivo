@@ -76,5 +76,8 @@ def clasificar_api():
         'probs': probabilities
     })
 
+# --- CAMBIO AQUÍ PARA RENDER ---
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # Obtiene el puerto de Render o usa el 5000 por defecto para local
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)

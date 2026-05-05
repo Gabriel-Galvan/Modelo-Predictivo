@@ -17,7 +17,8 @@ export class AppComponent {
   imageUrl: string = "";
   graphUrl: string = "";
   
-  private apiUrl = 'https://modelo-predictivo-6.onrender.com/api/clasificar'
+  // URL de tu backend en Render
+  private apiUrl = 'https://modelo-predictivo-6.onrender.com';
 
   constructor(private http: HttpClient) {}
 
@@ -33,17 +34,19 @@ export class AppComponent {
     const formData = new FormData();
     formData.append('image', this.selectedFile);
 
-    this.http.post<any>(`${this.API_URL}/api/clasificar`, formData).subscribe({
+    // Se corrigió el uso de this.apiUrl para que coincida con la definición de arriba
+    this.http.post<any>(`${this.apiUrl}/api/clasificar`, formData).subscribe({
       next: (data) => {
         this.prediction = data.prediction;
         this.imageName = data.image_name;
         this.probs = data.probs;
         
-        this.imageUrl = `${this.API_URL}/static/uploads/${this.imageName}`;
-        this.graphUrl = `${this.API_URL}/static/uploads/probabilidades.png?t=${new Date().getTime()}`;
+        // Rutas actualizadas para apuntar al servidor de Render
+        this.imageUrl = `${this.apiUrl}/static/uploads/${this.imageName}`;
+        this.graphUrl = `${this.apiUrl}/static/uploads/probabilidades.png?t=${new Date().getTime()}`;
       },
       error: (err) => {
-        alert("Error al conectar con el servidor Flask");
+        alert("Error al conectar con el servidor Flask en Render");
         console.error(err);
       }
     });

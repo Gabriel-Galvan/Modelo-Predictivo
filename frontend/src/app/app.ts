@@ -18,7 +18,7 @@ export class AppComponent {
   graphUrl: string = "";
   
   // URL de tu backend en Render
-  private apiUrl = 'https://modelo-predictivo-6.onrender.com';
+  private apiUrl = 'https://modelo-predictivo-7.onrender.com';
 
   constructor(private http: HttpClient) {}
 

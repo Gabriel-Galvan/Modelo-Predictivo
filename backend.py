@@ -20,7 +20,7 @@ output_details = interpreter.get_output_details()
 
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
 
-# Configuración de carpetas
+# Configuración de carpetas temporales
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -32,19 +32,21 @@ def predict_with_tflite(img_array):
     output_data = interpreter.get_tensor(output_details[0]['index'])
     return output_data[0]
 
+@app.route('/')
+def home():
+    return "Servidor de IA Activo - UNFV"
+
 @app.route('/api/clasificar', methods=['POST'])
 def clasificar_api():
     file = request.files.get('image')
-    
     if not file:
         return jsonify({'error': 'No se envió imagen'}), 400
     
-    # Guardar archivo de forma segura
     filename = secure_filename(file.filename)
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
     
-    # Preprocesar imagen
+    # Preprocesamiento
     img = image.load_img(filepath, target_size=(128, 128))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
@@ -53,13 +55,12 @@ def clasificar_api():
     prediction = predict_with_tflite(img_array)
     predicted_class = class_names[np.argmax(prediction)]
     
-    # Formatear probabilidades
     probabilities = {
         class_names[i]: float(f"{prob:.4f}") 
         for i, prob in enumerate(prediction)
     }
     
-    # Generar gráfico de barras
+    # Gráfico de resultados
     plt.figure(figsize=(6, 4))
     plt.bar(probabilities.keys(), probabilities.values(), color='skyblue')
     plt.title('Probabilidades por clase')
@@ -76,7 +77,6 @@ def clasificar_api():
         'probs': probabilities
     })
 
-
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port, debug=False)

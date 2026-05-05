@@ -1,0 +1,25 @@
+# --- Python / Backend ---
+__pycache__/
+.venv/
+env/
+venv/
+*.py[cod]
+*$py.class
+.env
+db.sqlite3
+
+# --- Angular / Frontend ---
+frontend/node_modules/
+frontend/.angular/
+frontend/dist/
+.DS_Store
+Thumbs.db
+
+# --- Datos / Archivos Necesarios ---
+dataset/
+static/uploads/*
+!static/uploads/.gitkeep
+
+# --- Notas Importantes ---
+# Se han eliminado *.tflite y *.h5 de esta lista 
+# para que Git permita subir el modelo brain_tumor_cnn.tflite

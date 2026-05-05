@@ -1,0 +1,148 @@
+:host {
+  display: block;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  color: #333;
+}
+
+.app-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  color: #1a73e8;
+  margin-bottom: 8px;
+}
+
+.upload-section {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.btn-select {
+  background-color: #fff;
+  border: 2px solid #1a73e8;
+  color: #1a73e8;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-select:hover {
+  background-color: #e8f0fe;
+}
+
+.btn-predict {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn-predict:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Grid de Resultados */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.result-card, .stats-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+h3 {
+  margin-top: 0;
+  border-bottom: 2px solid #f0f2f5;
+  padding-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.image-wrapper, .chart-wrapper {
+  margin: 20px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fafafa;
+}
+
+.main-img, .chart-img {
+  width: 100%;
+  display: block;
+}
+
+.prediction-box {
+  background-color: #e8f0fe;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.prediction-box strong {
+  display: block;
+  font-size: 1.4rem;
+  color: #1a73e8;
+}
+
+/* Tabla */
+.prob-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.prob-table th {
+  text-align: left;
+  background: #f8f9fa;
+  padding: 12px;
+}
+
+.prob-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.percentage {
+  font-weight: bold;
+  color: #34a853;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}

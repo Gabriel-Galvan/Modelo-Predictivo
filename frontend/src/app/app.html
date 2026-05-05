@@ -1,0 +1,56 @@
+<div class="app-container">
+  <header class="header">
+    <h1>Análisis de Resonancia Magnética</h1>
+    <p>Detección y Clasificación de Tumores Cerebrales</p>
+    
+    <div class="upload-section">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" id="fileInput" class="hidden-input">
+      <label for="fileInput" class="btn-select">Seleccionar Imagen</label>
+      <button (click)="onSubmit()" [disabled]="!selectedFile" class="btn-predict">Analizar</button>
+    </div>
+  </header>
+
+  <!-- Usamos @if para mostrar los resultados solo cuando existan -->
+  @if (prediction) {
+    <main class="results-grid">
+      
+      <!-- Columna Izquierda: Imagen y Predicción -->
+      <section class="result-card">
+        <h3>Imagen Procesada</h3>
+        <div class="image-wrapper">
+          <img [src]="imageUrl" alt="MRI Scan" class="main-img">
+        </div>
+        <div class="prediction-box">
+          <span>Diagnóstico:</span>
+          <strong>{{ prediction }}</strong>
+        </div>
+      </section>
+
+      <!-- Columna Derecha: Gráficos y Probabilidades -->
+      <section class="stats-card">
+        <h3>Distribución de Probabilidades</h3>
+        <div class="chart-wrapper">
+          <img [src]="graphUrl" alt="Gráfico de Probabilidades" class="chart-img">
+        </div>
+
+        <table class="prob-table">
+          <thead>
+            <tr>
+              <th>Tipo de Tumor</th>
+              <th>Confianza</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of getProbsList(); track item[0]) {
+              <tr>
+                <td>{{ item[0] }}</td>
+                <td class="percentage">{{ ($any(item[1]) * 100).toFixed(2) }}%</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  }
+</div>

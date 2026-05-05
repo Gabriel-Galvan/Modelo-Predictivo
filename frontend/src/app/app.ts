@@ -17,7 +17,7 @@ export class AppComponent {
   imageUrl: string = "";
   graphUrl: string = "";
   
-  private API_URL = "http://localhost:5000";
+  private apiUrl = 'https://modelo-predictivo-6.onrender.com/api/clasificar'
 
   constructor(private http: HttpClient) {}
 
